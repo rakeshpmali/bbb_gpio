@@ -57,6 +57,10 @@
 
 #define PIN_MODE_DEFAULT ("default")
 
+#define DELAY_SECONDS(d) (usleep(d*1000000))
+#define DELAY_MILLI_SECONDS(d) (usleep(d*1000))
+#define DELAY_MICRO_SECONDS(d) (usleep(d))
+
 // structure having pin details
 typedef struct
 {

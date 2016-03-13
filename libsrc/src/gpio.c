@@ -13,7 +13,7 @@ int getPin(char *pchPin)
             return PIN_TABLE[i].iPin;
     }
     
-    printf("\nERROR: Invalid Pin Information: %s\n", pchPin);
+    printf("\nERROR: getPin(): Invalid Pin Information: %s\n", pchPin);
     return -1;
 }
 
@@ -24,7 +24,7 @@ int setPinMode(char *pchPin, char *pchMode)
     FILE *pfCmd = NULL;
     
     if (setuid(0)) {
-        printf("\nERROR: Not a root user. Please run with root previleges (sudo) \n");
+printf("\nERROR: setPinMode(): Not a root user. Please run with root previleges (sudo) \n");
         return -1;
     }
     
@@ -32,15 +32,15 @@ int setPinMode(char *pchPin, char *pchMode)
     iRet = access(pchFile, F_OK);
     if (0 != iRet) {
         if (ENOENT == errno) { 
-            printf("\nERROR: (%d) File/Path does not exist: %s\n", errno, pchFile);
+            printf("\nERROR: setPinMode(): (%d) File/Path does not exist: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else if (EACCES == errno) {
-            printf("\nERROR: (%d) File access failed, permission denied: %s\n", errno, pchFile);
+            printf("\nERROR: setPinMode(): (%d) File access failed, permission denied: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else {
-            printf("\nERROR: (%d) Unknown error: %s\n", errno, pchFile);
+            printf("\nERROR: setPinMode(): (%d) Unknown error: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         }
@@ -63,7 +63,7 @@ int exportPin(char *pchPin)
     FILE *pfCmd = NULL;
     
     if (setuid(0)) {
-        printf("\nERROR: Not a root user. Please run with root previleges (sudo) \n");
+        printf("\nERROR: exportPin(): Not a root user. Please run with root previleges (sudo) \n");
         return -1;
     }
 
@@ -71,7 +71,8 @@ int exportPin(char *pchPin)
     if (iPin == -1) {
         return iPin;
     }
-    
+   
+     
     asprintf(&pchFile, "/sys/class/gpio/gpio%d", iPin);
     iRet = access(pchFile, F_OK);
     if (0 == iRet) {
@@ -82,15 +83,15 @@ int exportPin(char *pchPin)
     iRet = access(pchFile, F_OK);
     if (0 != iRet) {
         if (ENOENT == errno) { 
-            printf("\nERROR: (%d) File/Path does not exist: %s\n", errno, pchFile);
+            printf("\nERROR: exportPin(): (%d) File/Path does not exist: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else if (EACCES == errno) {
-            printf("\nERROR: (%d) File access failed, permission denied: %s\n", errno, pchFile);
+            printf("\nERROR: exportPin(): (%d) File access failed, permission denied: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else {
-            printf("\nERROR: (%d) Unknown error: %s\n", errno, pchFile);
+            printf("\nERROR: exportPin(): (%d) Unknown error: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         }
@@ -112,7 +113,7 @@ int setPinDirection(char *pchPin, char *pchDir)
     FILE *pfCmd = NULL;
     
     if (setuid(0)) {
-        printf("\nERROR: Not a root user. Please run with root previleges (sudo) \n");
+        printf("\nERROR: setPinDirection(): Not a root user. Please run with root previleges (sudo) \n");
         return -1;
     }
 
@@ -125,15 +126,15 @@ int setPinDirection(char *pchPin, char *pchDir)
     iRet = access(pchFile, F_OK);
     if (0 != iRet) {
         if (ENOENT == errno) { 
-            printf("\nERROR: (%d) File/Path does not exist: %s\n", errno, pchFile);
+            printf("\nERROR: setPinDirection(): (%d) File/Path does not exist: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else if (EACCES == errno) {
-            printf("\nERROR: (%d) File access failed, permission denied: %s\n", errno, pchFile);
+            printf("\nERROR: setPinDirection(): (%d) File access failed, permission denied: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else {
-            printf("\nERROR: (%d) Unknown error: %s\n", errno, pchFile);
+            printf("\nERROR: setPinDirection(): (%d) Unknown error: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         }
@@ -163,7 +164,7 @@ int setPinValue(char *pchPin, int iValue)
     FILE *pfCmd = NULL;
 
     if (setuid(0)) {
-        printf("\nERROR: Not a root user. Please run with root previleges (sudo) \n");
+        printf("\nERROR: setPinValue(): Not a root user. Please run with root previleges (sudo) \n");
         return -1;
     }
 
@@ -176,15 +177,15 @@ int setPinValue(char *pchPin, int iValue)
     iRet = access(pchFile, F_OK);
     if (0 != iRet) {
         if (ENOENT == errno) { 
-            printf("\nERROR: (%d) File/Path does not exist: %s\n", errno, pchFile);
+            printf("\nERROR: setPinValue(): (%d) File/Path does not exist: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else if (EACCES == errno) {
-            printf("\nERROR: (%d) File access failed, permission denied: %s\n", errno, pchFile);
+            printf("\nERROR: setPinValue(): (%d) File access failed, permission denied: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else {
-            printf("\nERROR: (%d) Unknown error: %s\n", errno, pchFile);
+            printf("\nERROR: setPinValue(): (%d) Unknown error: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         }
@@ -206,7 +207,7 @@ int getPinValue(char *pchPin, int *iValue)
     FILE *pFile = NULL;
 
     if (setuid(0)) {
-        printf("\nERROR: Not a root user. Please run with root previleges (sudo) \n");
+        printf("\nERROR: getPinValue(): Not a root user. Please run with root previleges (sudo) \n");
         return -1;
     }
     
@@ -219,15 +220,15 @@ int getPinValue(char *pchPin, int *iValue)
     iRet = access(pchFile, F_OK);
     if (0 != iRet) {
         if (ENOENT == errno) { 
-            printf("\nERROR: (%d) File/Path does not exist: %s\n", errno, pchFile);
+            printf("\nERROR: getPinValue(): (%d) File/Path does not exist: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else if (EACCES == errno) {
-            printf("\nERROR: (%d) File access failed, permission denied: %s\n", errno, pchFile);
+            printf("\nERROR: getPinValue(): (%d) File access failed, permission denied: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         } else {
-            printf("\nERROR: (%d) Unknown error: %s\n", errno, pchFile);
+            printf("\nERROR: getPinValue(): (%d) Unknown error: %s\n", errno, pchFile);
             free(pchFile);
             return -1;
         }
