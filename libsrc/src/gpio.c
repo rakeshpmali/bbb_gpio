@@ -71,7 +71,6 @@ int exportPin(char *pchPin)
     if (iPin == -1) {
         return iPin;
     }
-   
      
     asprintf(&pchFile, "/sys/class/gpio/gpio%d", iPin);
     iRet = access(pchFile, F_OK);

@@ -2,82 +2,62 @@
 
 void main(int argc, char **argv)
 {
-    int iNum = 0;
+    if(0 != init7SegLedDisplay())
+        exit(EXIT_FAILURE);
+
     while(1)
-    {   
-        if(iNum == 10)
-            iNum = 0;
-
-        setBlank();
-
-        switch(iNum)
-        {
-            case 0:
-                {
-                    setNum_0();
-                    break;
-                }
-
-            case 1:
-                {
-                    setNum_1();
-                    break;
-                }
-
-            case 2:
-                {
-                    setNum_2();
-                    break;
-                }
-
-            case 3:
-                {
-                    setNum_3();
-                    break;
-                }
-
-            case 4:
-                {
-                    setNum_4();
-                    break;
-                }
-
-            case 5:
-                {
-                    setNum_5();
-                    break;
-                }
-
-            case 6:
-                {
-                    setNum_6();
-                    break;
-                }
-            
-            case 7:
-                {
-                    setNum_7();
-                    break;
-                }
-
-            case 8:
-                {
-                    setNum_8();
-                    break;
-                }
-            
-            case 9:
-                {
-                    setNum_9();
-                    break;
-                }
-
-            default:
-                {
-                }
-        }
-        
-        DELAY_SECONDS(1);
-        ++iNum;
+    {  
+        displayChar(CHAR_0); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_1); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_2); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_3); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_4); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_5); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_6); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_7); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_8); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_9); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_A); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_b); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_C); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_c); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_d); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_E); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_F); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_H); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_h); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_J); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_L); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_o); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_P); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_S); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_U); 
+        DELAY_MILLI_SECONDS(800);
+        displayChar(CHAR_u); 
+        DELAY_MILLI_SECONDS(800);
     }
 }
