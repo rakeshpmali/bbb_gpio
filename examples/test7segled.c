@@ -2,62 +2,23 @@
 
 void main(int argc, char **argv)
 {
+    int i = 0;
+    char chNumAlpha[] = {CHAR_0, CHAR_1, CHAR_2, CHAR_3, CHAR_4, CHAR_5,
+                         CHAR_6, CHAR_7, CHAR_8, CHAR_9, CHAR_A, CHAR_b,
+                         CHAR_C, CHAR_c, CHAR_d, CHAR_E, CHAR_F, CHAR_H,
+                         CHAR_h, CHAR_J, CHAR_L, CHAR_o, CHAR_P, CHAR_S,
+                         CHAR_U, CHAR_u};
+
     if(0 != init7SegLedDisplay())
         exit(EXIT_FAILURE);
 
     while(1)
     {  
-        displayChar(CHAR_0); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_1); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_2); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_3); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_4); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_5); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_6); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_7); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_8); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_9); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_A); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_b); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_C); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_c); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_d); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_E); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_F); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_H); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_h); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_J); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_L); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_o); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_P); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_S); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_U); 
-        DELAY_MILLI_SECONDS(800);
-        displayChar(CHAR_u); 
-        DELAY_MILLI_SECONDS(800);
+        displayChar(chNumAlpha[i]);
+        DELAY_MILLI_SECONDS(900);
+
+        i++;
+        if(i == 26)
+            i = 0;
     }
 }
