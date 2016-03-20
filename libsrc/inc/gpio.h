@@ -55,8 +55,6 @@
 #define P8_45   ("P8_45")
 #define P8_46   ("P8_46")
 
-#define PIN_MODE_DEFAULT ("default")
-
 #define DELAY_SECONDS(d) (usleep(d*1000000))
 #define DELAY_MILLI_SECONDS(d) (usleep(d*1000))
 #define DELAY_MICRO_SECONDS(d) (usleep(d))
@@ -65,7 +63,6 @@
 typedef struct
 {
     char chPin[PORT_PIN_LENGTH];          // BBB PIN. e.g. P8.39
-    //char chGpioPin[8];      // mode 7 name. e.g. GPIO2_12 
     int iPin;               // pin = gpio base * 32 + pin number
                             // e.g. for P8.39, mode 7 is GPIO2_12 then, pin = 2 * 32 + 12 = 76
 } PIN;
@@ -120,9 +117,18 @@ static PIN PIN_TABLE[MAX_PIN_COUNT] =
 };
 
 // Function Declerations
-int setPinMode(char *pchPin, char *pchMode);
+//library functions (API)
+int pinInit(char *pchPin, char *pchDir);
+int pinWrite(char *pchPin, int iValue);
+int pinRead(char *pchPin, int *piValue);
+
+//internal functions
+int getPinFromTable(char *pchPin);
 int exportPin(char *pchPin);
 int setPinDirection(char *pchPin, char *pchDir);
 int setPinValue(char *pchPin, int iValue);
-int getPin(char *pchPin);
-int getPinValue(char *pchPin, int *iValue);
+int getPinValue(char *pchPin, int *piValue);
+/*obsolete
+int setPinState(char *pchPin, char *pchMode);
+*/
+

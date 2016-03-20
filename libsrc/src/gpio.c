@@ -4,7 +4,34 @@
 #include <sys/types.h>
 
 // Function definitions
-int getPin(char *pchPin)
+int pinInit(char *pchPin, char *pchDir)
+{
+    //first export the pin if not exported already
+    if (0 != exportPin(pchPin)) 
+        exit(EXIT_FAILURE);
+    //set the pin direction (in / out)
+    if (0 != setPinDirection(pchPin, pchDir))
+        exit(EXIT_FAILURE);
+    //if direction is out then initilise the pin with low value
+    if( strncmp(pchDir, GPIO_DIR_OUT, strlen(GPIO_DIR_OUT)) ) {
+        if (0 != setPinValue(pchPin, GPIO_LOW))
+            exit(EXIT_FAILURE);
+    }
+
+    return 0;
+}
+
+int pinWrite(char *pchPin, int iValue)
+{
+    return (setPinValue(pchPin, iValue));
+}
+
+int pinRead(char *pchPin, int *piValue)
+{
+    return (getPinValue(pchPin, piValue));
+}
+
+int getPinFromTable(char *pchPin)
 {
     int i = 0;
     
@@ -13,11 +40,12 @@ int getPin(char *pchPin)
             return PIN_TABLE[i].iPin;
     }
     
-    printf("\nERROR: getPin(): Invalid Pin Information: %s\n", pchPin);
+    printf("\nERROR: getPinFromTable(): Invalid Pin Information: %s\n", pchPin);
     return -1;
 }
 
-int setPinMode(char *pchPin, char *pchMode)
+/*obsolete function
+int setPinState(char *pchPin, char *pchMode)
 {
     char *pchFile = NULL, *pchCmd = NULL, chBuff[256];
     int iRet = 0;
@@ -55,6 +83,7 @@ printf("\nERROR: setPinMode(): Not a root user. Please run with root previleges 
     free(pchCmd);
     return iRet;
 }
+*/
 
 int exportPin(char *pchPin)
 {
@@ -67,7 +96,7 @@ int exportPin(char *pchPin)
         return -1;
     }
 
-    iPin = getPin(pchPin);
+    iPin = getPinFromTable(pchPin);
     if (iPin == -1) {
         return iPin;
     }
@@ -115,8 +144,14 @@ int setPinDirection(char *pchPin, char *pchDir)
         printf("\nERROR: setPinDirection(): Not a root user. Please run with root previleges (sudo) \n");
         return -1;
     }
+    
+    if( (!strncmp(pchDir, GPIO_DIR_IN, strlen(GPIO_DIR_IN))) && 
+        (!strncmp(pchDir, GPIO_DIR_OUT, strlen(GPIO_DIR_OUT))) ) {
+        printf("\nERROR: setPinDirection(): Invalid Pin Direction ! (it should be 'in' or 'out')\n");
+        return -1;
+    }
 
-    iPin = getPin(pchPin);
+    iPin = getPinFromTable(pchPin);
     if (iPin == -1) {
         return iPin;
     }
@@ -147,12 +182,6 @@ int setPinDirection(char *pchPin, char *pchDir)
     free(pchCmd);
     //usleep(500000);
 
-    //if direction in out then initilise the pin with low value
-    if( strncmp(pchDir, GPIO_DIR_OUT, strlen(GPIO_DIR_OUT)) ) {
-        if (0 != setPinValue(pchPin, GPIO_LOW))
-            exit(EXIT_FAILURE);
-    }
-
     return iRet;
 }
 
@@ -167,7 +196,12 @@ int setPinValue(char *pchPin, int iValue)
         return -1;
     }
 
-    iPin = getPin(pchPin);
+    if((iValue != GPIO_LOW) && (iValue != GPIO_HIGH)) {
+        printf("\nERROR: setPinValue(): Invalid Pin Value ! (it should be '0' or '1')) \n");
+        return -1;
+    }
+
+    iPin = getPinFromTable(pchPin);
     if (iPin == -1) {
         return iPin;
     }
@@ -199,7 +233,7 @@ int setPinValue(char *pchPin, int iValue)
     return iRet;
 }
 
-int getPinValue(char *pchPin, int *iValue)
+int getPinValue(char *pchPin, int *piValue)
 {
     char *pchFile = NULL, *pchCmd = NULL, chBuff[2];
     int iPin = 0, iRet = 0, iRead = 0;
@@ -210,7 +244,7 @@ int getPinValue(char *pchPin, int *iValue)
         return -1;
     }
     
-    iPin = getPin(pchPin);
+    iPin = getPinFromTable(pchPin);
     if (iPin == -1) {
         return iPin;
     }
@@ -242,7 +276,7 @@ int getPinValue(char *pchPin, int *iValue)
         return -1; 
     }
 
-    *iValue = atoi(chBuff);
+    *piValue = atoi(chBuff);
     
     fclose(pFile);
     return iRet;
