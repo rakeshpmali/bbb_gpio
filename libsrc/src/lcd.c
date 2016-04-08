@@ -66,12 +66,12 @@ int lcdDisplayText(char *pchText)
     {
         if(*pchText == '\n')
         {
-            if(giROW <= 3)
-                ++giROW;
+            if(gi_CURRENT_ROW <= 3)
+                ++gi_CURRENT_ROW;
             else
-                giROW = 1;
+                gi_CURRENT_ROW = 1;
 
-            lcdGoToXY(giROW,0);
+            lcdGoToXY(gi_CURRENT_ROW,0);
             ++pchText;
         } else {    
             lcdSendText4Bit(*pchText++);
@@ -86,11 +86,11 @@ int lcdGoToXY(int iRow, int iColumn)
     int iAddr = 0;
     switch(iRow)
     {
-        case 1: iAddr = LCD_LINE1_START_ADDR; giROW = 1; break; 
-        case 2: iAddr = LCD_LINE2_START_ADDR; giROW = 2; break; 
-        case 3: iAddr = LCD_LINE3_START_ADDR; giROW = 3; break; 
-        case 4: iAddr = LCD_LINE4_START_ADDR; giROW = 4; break; 
-        default: giROW = 1; printf("\nERROR: lcdGoToXY(): Invalid X &/or Y position!"); 
+        case 1: iAddr = LCD_LINE1_START_ADDR; gi_CURRENT_ROW = 1; break; 
+        case 2: iAddr = LCD_LINE2_START_ADDR; gi_CURRENT_ROW = 2; break; 
+        case 3: iAddr = LCD_LINE3_START_ADDR; gi_CURRENT_ROW = 3; break; 
+        case 4: iAddr = LCD_LINE4_START_ADDR; gi_CURRENT_ROW = 4; break; 
+        default: gi_CURRENT_ROW = 1; printf("\nERROR: lcdGoToXY(): Invalid X &/or Y position!"); 
     }
    
     if (iColumn) 

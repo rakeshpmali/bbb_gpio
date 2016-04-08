@@ -1,6 +1,6 @@
 #include "gpio.h"
 
-#define LCD_ROWS (2)
+#define LCD_ROWS (4)
 #define LCD_COLUMNS (20)
 
 //LCD control pins
@@ -21,10 +21,10 @@
 */
 
 //LCD Commands
-#define _8BIT_1LINE_5x7DOTS     (0x30)  //Function Set: 8-bit, 1 Line, 5x7 Dots
-#define _8BIT_2LINE_5x7DOTS     (0x38)  //Function Set: 8-bit, 2 Line, 5x7 Dots
-#define _4BIT_1LINE_5x7DOTS     (0x20)  //Function Set: 4-bit, 1 Line, 5x7 Dots
-#define _4BIT_2LINE_5x7DOTS     (0x28)  //Function Set: 4-bit, 2 Line, 5x7 Dots
+#define _8BIT_1LINE_5x7DOTS     (0x30)  //8-bit, 1 Line, 5x7 Dots
+#define _8BIT_2LINE_5x7DOTS     (0x38)  //8-bit, 2 Line, 5x7 Dots
+#define _4BIT_1LINE_5x7DOTS     (0x20)  //4-bit, 1 Line, 5x7 Dots
+#define _4BIT_2LINE_5x7DOTS     (0x28)  //4-bit, 2 Line, 5x7 Dots
 #define ENTRY_MODE              (0x06)  //Entry Mode
 #define DISP_OFF_CURS_OFF       (0x08)  //Display off Cursor off (clearing display without clearing DDRAM content)
 #define DISP_ON_CURS_ON         (0x0E)  //Display on Cursor on
@@ -66,4 +66,4 @@ int lcdClear();
 void printBinary(int n);
 
 //Global Variables
-static int giROW = 1; // keeps track of current row
+static int gi_CURRENT_ROW = 1; // keeps track of current row
